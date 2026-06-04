@@ -1,0 +1,69 @@
+# ══════════════════════════════════════════════
+# عينات اختبار جاهزة للباك اند
+# POST http://localhost:8000/diagnose
+# ══════════════════════════════════════════════
+
+# ── Case 1: التهاب رئوي (Pneumonia) ──────────
+POST /diagnose
+{
+  "evidence_codes": ["E_91", "E_167", "E_28", "E_38", "E_119"],
+  "age": 55,
+  "sex": "M"
+}
+
+# Expected:
+# primary_diagnosis.disease_en = "Pneumonia"
+# primary_diagnosis.disease_ar = "الالتهاب الرئوي"
+# confidence ≈ 80%+
+
+
+# ── Case 2: إنفلونزا (Influenza) ─────────────
+POST /diagnose
+{
+  "evidence_codes": ["E_91", "E_167", "E_119", "E_149", "E_103"],
+  "age": 35,
+  "sex": "M"
+}
+
+# Expected:
+# primary_diagnosis.disease_en = "Influenza"
+# primary_diagnosis.disease_ar = "الإنفلونزا الموسمية"
+
+
+# ── Case 3: أزمة قلبية (NSTEMI/STEMI) ────────
+POST /diagnose
+{
+  "evidence_codes": ["E_55_@_V_101", "E_28", "E_9", "E_103", "E_232"],
+  "age": 62,
+  "sex": "M"
+}
+
+# Expected:
+# primary_diagnosis.disease_en = "Possible NSTEMI / STEMI"
+# primary_diagnosis.disease_ar = "احتمال احتشاء عضلة القلب"
+
+
+# ── Case 4: ربو حاد (Asthma) ─────────────────
+POST /diagnose
+{
+  "evidence_codes": ["E_28", "E_167", "E_251", "E_103"],
+  "age": 30,
+  "sex": "F"
+}
+
+# Expected:
+# primary_diagnosis.disease_en = "Bronchospasm / acute asthma exacerbation"
+# primary_diagnosis.disease_ar = "نوبة الربو الحادة"
+
+
+# ── Case 5: سل رئوي (Tuberculosis) ───────────
+POST /diagnose
+{
+  "evidence_codes": ["E_167", "E_91", "E_149", "E_213", "E_28"],
+  "age": 40,
+  "sex": "M"
+}
+
+# Expected:
+# primary_diagnosis.disease_en = "Tuberculosis"
+# primary_diagnosis.disease_ar = "السل الرئوي"

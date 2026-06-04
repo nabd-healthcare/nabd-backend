@@ -1,0 +1,701 @@
+/* 
+  ملف اختبارات شامل - النسخة الثانية (Set #2)
+  موقع الملف: c:\Users\muham\Desktop\Nabd\Back\src\Nabd.Application\AI\Diagnosis\Data\full_model_tests_v2.http
+  هذه الاختبارات تستخدم أكواد مختلفة عن النسخة السابقة للتأكد من قدرة الموديل على الربط بين مختلف الأعراض.
+*/
+
+### 1. Acute COPD exacerbation / infection (نوبة حادة لمرض السدة الرئوية المزمنة / عدوى)
+{
+  "evidence_codes": ["E_201", "E_214", "E_77", "E_123", "E_125"],
+  "age": 70, "sex": "M"
+}
+/*
+- E_201: سعال (Cough)
+- E_214: صوت صفير عند الزفير (Wheezing)
+- E_77: بلغم ملون (Colored sputum)
+- E_123: تاريخ مرض السدة الرئوية (COPD)
+- E_125: تاريخ ارتجاع مريء (GERD history)
+*/
+
+### 2. Acute dystonic reactions (تفاعلات خلل التوتر الحادة)
+{
+  "evidence_codes": ["E_128", "E_193", "E_168", "E_15", "E_62"],
+  "age": 25, "sex": "M"
+}
+/*
+- E_128: اختناق لحظي (Choking sensation)
+- E_193: تشنج العضلات (Muscle spasms)
+- E_168: صعوبة في إبقاء اللسان في الفم (Tongue protrusion)
+- E_15: أخذ أدوية نفسية مؤخراً (Antipsychotics)
+- E_62: تعاطي منشطات (Stimulant drugs)
+*/
+
+### 3. Acute laryngitis (التهاب الحنجرة الحاد)
+{
+  "evidence_codes": ["E_212", "E_91", "E_97", "E_48", "E_116"],
+  "age": 35, "sex": "F"
+}
+/*
+- E_212: صوت أجش/عميق (Hoarse voice)
+- E_91: حمى (Fever)
+- E_97: ألم حلق (Sore throat)
+- E_48: سكن جماعي (Living with 4+ people)
+- E_116: برد مؤخراً (Recent cold)
+*/
+
+### 4. Acute otitis media (التهاب الأذن الوسطى الحاد)
+{
+  "evidence_codes": ["E_181", "E_91", "E_114", "E_1", "E_49"],
+  "age": 5, "sex": "M"
+}
+/*
+- E_181: احتقان أنف (Nasal congestion)
+- E_91: حمى (Fever)
+- E_114: تهيج/مزاج سيء (Irritability)
+- E_1: علاج سابق بأدوية أذن (Previous ear antibiotic)
+- E_49: حضانة (Daycare attendee)
+*/
+
+### 5. Acute pulmonary edema (وذمة رئوية حادة - تجمع سوائل)
+{
+  "evidence_codes": ["E_66", "E_155", "E_217", "E_67", "E_105", "E_8"],
+  "age": 75, "sex": "M"
+}
+/*
+- E_66: ضيق تنفس (SOB)
+- E_155: خفقان قلب (Palpitations)
+- E_217: سوء الحالة عند الاستلقاء (Orthopnea)
+- E_67: اختناق ليلي (Paroxysmal nocturnal dyspnea)
+- E_105: تاريخ نوبة قلبية (History of MI)
+- E_8: غسيل كلوي (Dialysis)
+*/
+
+### 6. Acute rhinosinusitis (التهاب الجيوب الأنفية الحاد)
+{
+  "evidence_codes": ["E_182", "E_181", "E_55", "E_119", "E_116"],
+  "age": 30, "sex": "F"
+}
+/*
+- E_182: إفرازات ملونة (Colored discharge)
+- E_181: احتقان (Congestion)
+- E_55: ألم (Pain)
+- E_119: تاريخ التهاب جيوب مزمن (Chronic sinusitis history)
+- E_116: برد مؤخراً (Recent cold)
+*/
+
+### 7. Allergic sinusitis (التهاب الجيوب الأنفية التحسسي)
+{
+  "evidence_codes": ["E_181", "E_170", "E_169", "E_226", "E_87"],
+  "age": 28, "sex": "F"
+}
+/*
+- E_181: احتقان أنف (Nasal congestion)
+- E_170: حكة في العين (Itchy eyes)
+- E_169: حكة في الأنف/الحلق (Itchy nose/throat)
+- E_226: القابلية للحساسية (Atopy)
+- E_87: تاريخ عائلي للربو (Family asthma)
+*/
+
+### 8. Anaphylaxis (صدمة حساسية - تأق)
+{
+  "evidence_codes": ["E_42", "E_129", "E_66", "E_194", "E_82", "E_12"],
+  "age": 25, "sex": "M"
+}
+/*
+- E_42: تعرض لمسبب حساسية (Allergy exposure)
+- E_129: طفح جلدي (Rash/Lesions)
+- E_66: ضيق تنفس (SOB)
+- E_194: تصفير صادر (Stridor/High pitch sound)
+- E_82: دوار (Lightheadedness)
+- E_12: حساسية طعام معروفة (Known food allergy)
+*/
+
+### 9. Anemia (فقر الدم - أنيميا)
+{
+  "evidence_codes": ["E_89", "E_154", "E_7", "E_146", "E_113"],
+  "age": 55, "sex": "F"
+}
+/*
+- E_89: تعب مستمر (Fatigue)
+- E_154: شحوب (Pale skin)
+- E_7: تغذية سيئة (Poor diet)
+- E_146: أدوية سيولة (Anticoagulants)
+- E_113: فشل كلوي مزمن (Chronic kidney failure)
+*/
+
+### 10. Atrial fibrillation (رجفان أذيني)
+{
+  "evidence_codes": ["E_155", "E_164", "E_76", "E_139", "E_19"],
+  "age": 70, "sex": "M"
+}
+/*
+- E_155: خفقان (Palpitations)
+- E_164: ضربات قلب غير منتظمة (Irregular heart beat)
+- E_76: دوار خفيف (Slightly dizzy)
+- E_139: عيب قلبي معروف (Heart defect)
+- E_19: نشاط غدة درقية (Hyperthyroidism)
+*/
+
+### 11. Boerhaave (متلازمة بورهيف - تمزق المريء)
+{
+  "evidence_codes": ["E_55", "E_211", "E_66", "E_148", "E_78"],
+  "age": 50, "sex": "M"
+}
+/*
+- E_55: ألم صدر (Pain)
+- E_211: قيء متكرر (Multiple vomiting efforts)
+- E_66: ضيق تنفس (SOB)
+- E_148: غثيان (Nausea)
+- E_78: شرب كحول بكثرة (Alcohol addiction)
+*/
+
+### 12. Bronchiectasis (توسع القصبات الهوائية)
+{
+  "evidence_codes": ["E_201", "E_77", "E_118", "E_18", "E_227"],
+  "age": 30, "sex": "F"
+}
+/*
+- E_201: سعال (Cough)
+- E_77: بلغم ملون (Colored sputum)
+- E_118: تاريخ التهاب رئوي (Previous pneumonia)
+- E_18: تليف كيسي (Cystic fibrosis)
+- E_227: نقص مناعة (Immunosuppressed)
+*/
+
+### 13. Bronchiolitis (التهاب القصيبات الهوائية)
+{
+  "evidence_codes": ["E_201", "E_66", "E_214", "E_32", "E_142", "E_195"],
+  "age": 1, "sex": "M"
+}
+/*
+- E_201: سعال (Cough)
+- E_66: ضيق تنفس (SOB)
+- E_214: صوت صفير (Wheezing)
+- E_32: نقص شهية (Loss of appetite)
+- E_142: أم مصابة بالربو (Mother has asthma)
+- E_195: سكن في ضواحي (Living in suburbs)
+*/
+
+### 14. Bronchitis (التهاب الشعب الهوائية)
+{
+  "evidence_codes": ["E_201", "E_77", "E_91", "E_219", "E_79", "E_209"],
+  "age": 45, "sex": "M"
+}
+/*
+- E_201: سعال (Cough)
+- E_77: بلغم ملون (Colored sputum)
+- E_91: حمى (Fever)
+- E_219: أعراض ليلية (Symptoms more prominent at night)
+- E_79: مدخن (Smoke cigarettes)
+- E_209: تطعيمات مكتملة (Vaccinations up to date)
+*/
+
+### 15. Bronchospasm / acute asthma exacerbation (تشنج قصبي / نوبة ربو حادة)
+{
+  "evidence_codes": ["E_201", "E_66", "E_214", "E_124", "E_46", "E_207"],
+  "age": 25, "sex": "F"
+}
+/*
+- E_201: سعال (Cough)
+- E_66: ضيق تنفس (SOB)
+- E_214: صفير (Wheezing)
+- E_124: تاريخ ربو (Asthma history)
+- E_46: نوبات ربو متكررة خلال عام (2+ attacks in last year)
+- E_207: سكن في مدينة كبيرة (Living in a big city)
+*/
+
+### 16. Chagas (داء شاغاس)
+{
+  "evidence_codes": ["E_91", "E_174", "E_51", "E_9", "E_204"],
+  "age": 30, "sex": "M"
+}
+/*
+- E_91: حمى (Fever)
+- E_174: فقدان وزن (Weight loss)
+- E_51: إسهال (Diarrhea)
+- E_9: تورم غدد (Swollen lymph nodes)
+- E_204: سفر مؤخراً لأمريكا الجنوبية (Travel - South America)
+*/
+
+### 17. Chronic rhinosinusitis (التهاب الجيوب الأنفية المزمن)
+{
+  "evidence_codes": ["E_182", "E_181", "E_103", "E_120", "E_125", "E_116"],
+  "age": 45, "sex": "M"
+}
+/*
+- E_182: إفرازات ملونة (Colored discharge)
+- E_181: احتقان (Congestion)
+- E_103: فقدان شم (Lost smell)
+- E_120: لحمية أنف (Nasal polyps)
+- E_125: تاريخ ارتجاع مريء (GERD history)
+- E_116: برد متكرر (Frequent colds)
+*/
+
+### 18. Cluster headache (صداع عنقودي)
+{
+  "evidence_codes": ["E_55", "E_127", "E_181", "E_176", "E_184", "E_25"],
+  "age": 35, "sex": "M"
+}
+/*
+- E_55: ألم شديد (Pain)
+- E_127: دموع غزيرة (Excessive tears)
+- E_181: احتقان أنف وجهة واحدة (Nasal congestion)
+- E_176: ضعف في عضلات الوجه (Face weakness)
+- E_184: أدوية توسيع أوعية (Vasodilator meds)
+- E_25: تاريخ عائلي للصداع العنقودي (Family history)
+*/
+
+### 19. Croup (الخانوق)
+{
+  "evidence_codes": ["E_194", "E_202", "E_219", "E_190", "E_4"],
+  "age": 2, "sex": "M"
+}
+/*
+- E_194: تصفير صادر (Stridor)
+- E_202: سعال نباحي (Barking cough)
+- E_219: أعراض ليلية (Symptoms at night)
+- E_190: زيادة لعاب (Drooling/Saliva)
+- E_4: تاريخ عائلي للخانوق (Family croup history)
+*/
+
+### 20. Ebola (فيروس إيبولا)
+{
+  "evidence_codes": ["E_178", "E_91", "E_51", "E_144", "E_73", "E_204"],
+  "age": 35, "sex": "M"
+}
+/*
+- E_178: نزيف غير معتاد (Unusual bleeding)
+- E_91: حمى شديدة (Fever)
+- E_51: إسهال (Diarrhea)
+- E_144: آلام عضلات منتشرة (Muscle pain)
+- E_73: تواصل مع مريض إيبولا (Contact with Ebola)
+- E_204: سفر مؤخراً (Travel)
+*/
+
+### 21. Epiglottitis (التهاب لسان المزمار)
+{
+  "evidence_codes": ["E_91", "E_190", "E_33", "E_194", "E_212", "E_48", "E_209"],
+  "age": 6, "sex": "M"
+}
+/*
+- E_91: حمى (Fever)
+- E_190: زيادة لعاب (Drooling)
+- E_33: تحسن عند الميل للأمام (Propping symptom)
+- E_194: تصفير صادر (Stridor)
+- E_212: تغير الصوت (Muffled/Hoarse voice)
+- E_48: سكن جماعي (Living with many people)
+- E_209: تطعيمات غير مكتملة (N in vaccinations up to date potentially)
+*/
+
+### 22. GERD (ارتجاع المريء)
+{
+  "evidence_codes": ["E_173", "E_215", "E_217", "E_140", "E_70", "E_98"],
+  "age": 45, "sex": "M"
+}
+/*
+- E_173: حرقان في الصدر (Heartburn)
+- E_215: أسوأ بعد الأكل (Worse after eating)
+- E_217: أسوأ عند الاستلقاء (Worse when lying down)
+- E_140: براز أسود (Black stools - complication)
+- E_70: زيادة وزن ملحوظة (Overweight)
+- E_98: فتق حجاب حاجز (Hiatal hernia)
+*/
+
+### 23. Guillain-Barré syndrome (متلازمة غيلان باريه)
+{
+  "evidence_codes": ["E_84", "E_157", "E_93", "E_156", "E_0"],
+  "age": 35, "sex": "M"
+}
+/*
+- E_84: ضعف في الذراعين/الساقين (Weakness in limbs)
+- E_157: تنميل حول الفم والأطراف (Numbness)
+- E_93: فقدان إحساس بالقدمين (Loss of sensation in feet)
+- E_156: شلل في الوجه (Face paralysis)
+- E_0: عدوى فيروسية مؤخراً (Recent viral infection)
+*/
+
+### 24. HIV (initial infection) (فيروس نقص المناعة البشرية - العدوى الأولية)
+{
+  "evidence_codes": ["E_91", "E_144", "E_9", "E_133", "E_129", "E_189"],
+  "age": 30, "sex": "M"
+}
+/*
+- E_91: حمى (Fever)
+- E_144: آلام عضلات (Muscle pain)
+- E_9: تورم غدد (Swollen lymph nodes)
+- E_133: طفح جلدي في مناطق محددة (Rash location)
+- E_129: طفح جلدي (Lesions/Rash)
+- E_189: علاقة مع شريك مصاب (Contact with HIV positive)
+*/
+
+### 25. Influenza (الإنفلونزا)
+{
+  "evidence_codes": ["E_91", "E_94", "E_144", "E_201", "E_88", "E_41", "E_79"],
+  "age": 40, "sex": "F"
+}
+/*
+- E_91: حمى (Fever)
+- E_94: قشعريرة (Chills)
+- E_144: آلام عضلات (Muscle pain)
+- E_201: سعال (Cough)
+- E_88: تعب شديد (Severe fatigue)
+- E_41: اتصال بمريض مماثل (Contact with similar symptoms)
+- E_79: مدخن (Smoker)
+*/
+
+### 26. Inguinal hernia (فتق إربي)
+{
+  "evidence_codes": ["E_55", "E_221", "E_150", "E_30", "E_160", "E_70"],
+  "age": 50, "sex": "M"
+}
+/*
+- E_55: ألم (Pain)
+- E_221: سوء عند السعال أو الجهد (Worse with cough/effort)
+- E_150: قدرة على إخراج غازات (Passing gas)
+- E_30: طفح أو انتفاخ (Bloating)
+- E_160: ولادة مبكرة (Premature birth history)
+- E_70: زيادة وزن (Overweight)
+*/
+
+### 27. Larygospasm (تشنج الحنجرة)
+{
+  "evidence_codes": ["E_194", "E_125", "E_222", "E_116", "E_79"],
+  "age": 40, "sex": "M"
+}
+/*
+- E_194: تصفير صادر (Stridor)
+- E_125: تاريخ ارتجاع مريء (GERD history)
+- E_222: تعرض لدخان سجائر (Secondhand smoke)
+- E_116: برد مؤخراً (Recent cold)
+- E_79: مدخن (Smoker)
+*/
+
+### 28. Localized edema (وذمة موضعية - تورم موضعي)
+{
+  "evidence_codes": ["E_151", "E_152", "E_66", "E_96", "E_149", "E_106", "E_22"],
+  "age": 65, "sex": "F"
+}
+/*
+- E_151: تورم (Swelling)
+- E_152: مكان التورم (Swelling location)
+- E_66: ضيق تنفس (SOB)
+- E_96: زيادة وزن (Weight gain)
+- E_149: أدوية ضغط (Calcium channel blockers)
+- E_106: فشل عضلة القلب (Heart failure)
+- E_22: مشكلة صمام قلب (Heart valve issue)
+*/
+
+### 29. Myasthenia gravis (الوهن العضلي الوبيل)
+{
+  "evidence_codes": ["E_52", "E_172", "E_84", "E_90", "E_66", "E_38", "E_28"],
+  "age": 40, "sex": "F"
+}
+/*
+- E_52: رؤية مزدوجة (Double vision)
+- E_172: صعوبة فتح الجفون (Hard opening eyelids)
+- E_84: ضعف أطراف (Limb weakness)
+- E_90: زيادة الضعف مع التعب (Weakness increases with fatigue)
+- E_66: ضيق تنفس (SOB)
+- E_38: ألم أو ضعف في الفك (Jaw weakness)
+- E_28: تاريخ عائلي للوهن العضلي (Family history MG)
+*/
+
+### 30. Myocarditis (التهاب عضلة القلب)
+{
+  "evidence_codes": ["E_155", "E_66", "E_114", "E_64", "E_217", "E_0"],
+  "age": 25, "sex": "M"
+}
+/*
+- E_155: خفقان (Palpitations)
+- E_66: ضيق تنفس (SOB)
+- E_114: تهيج/مزاج (Irritability)
+- E_64: تعب مع أقل مجهود (SOB with minimal effort)
+- E_217: سوء عند الاستلقاء (Orthopnea)
+- E_0: عدوى فيروسية مؤخراً (Recent viral infection)
+*/
+
+### 31. PSVT (تسارع ضربات القلب فوق البطيني الانتيابي)
+{
+  "evidence_codes": ["E_155", "E_76", "E_82", "E_66", "E_60", "E_213", "E_35"],
+  "age": 30, "sex": "F"
+}
+/*
+- E_155: خفقان (Palpitations)
+- E_76: دوار (Dizzy)
+- E_82: إغماء (Feeling about to faint)
+- E_66: ضيق تنفس (SOB)
+- E_60: مشروبات طاقة (Energy drinks)
+- E_213: أدوية منبهة/احتقان (Stimulants/Decongestants)
+- E_35: شرب قهوة/شاي بكثرة (Coffee habit)
+*/
+
+### 32. Pancreatic neoplasm (سرطان البنكرياس)
+{
+  "evidence_codes": ["E_55", "E_188", "E_162", "E_51", "E_69", "E_6", "E_223"],
+  "age": 65, "sex": "M"
+}
+/*
+- E_55: ألم (Pain)
+- E_188: براز باهت وبول داكن (Pale stools/Dark urine)
+- E_162: فقدان وزن (Weight loss)
+- E_51: إسهال (Diarrhea)
+- E_69: سكر (Diabetes)
+- E_6: التهاب بنكرياس مزمن (Chronic pancreatitis)
+- E_223: تاريخ عائلي للسرطان (Family history)
+*/
+
+### 33. Panic attack (نوبة هلع)
+{
+  "evidence_codes": ["E_16", "E_75", "E_111", "E_171", "E_155", "E_50", "E_81", "E_99"],
+  "age": 28, "sex": "F"
+}
+/*
+- E_16: قلق (Anxiety)
+- E_75: شعور بالاختناق (Choking sensation)
+- E_111: شعور بالموت (Fear of dying)
+- E_171: انفصال عن الواقع (Detached from body)
+- E_155: خفقان (Palpitations)
+- E_50: زيادة تعرق (Sweating)
+- E_81: قلق مزمن (Chronic anxiety history)
+- E_99: تاريخ صداع نصفي (Migraine history)
+*/
+
+### 34. Pericarditis (التهاب غشاء القلب - التأمور)
+{
+  "evidence_codes": ["E_55", "E_220", "E_155", "E_217", "E_33", "E_3", "E_0"],
+  "age": 35, "sex": "M"
+}
+/*
+- E_55: ألم (Pain)
+- E_220: أسوأ مع الشهيق العميق (Pain with deep breath)
+- E_155: خفقان (Palpitations)
+- E_217: سوء عند الاستلقاء (Orthopnea)
+- E_33: تحسن عند الميل للأمام (Better leaning forward)
+- E_3: تاريخ التهاب غشاء القلب (Previous pericarditis)
+- E_0: عدوى فيروسية مؤخراً (Recent viral infection)
+*/
+
+### 35. Pneumonia (التهاب رئوي)
+{
+  "evidence_codes": ["E_201", "E_77", "E_91", "E_94", "E_66", "E_220", "E_118", "E_106"],
+  "age": 70, "sex": "M"
+}
+/*
+- E_201: سعال (Cough)
+- E_77: بلغم ملون (Colored sputum)
+- E_91: حمى (Fever)
+- E_94: قشعريرة (Chills)
+- E_66: ضيق تنفس (SOB)
+- E_220: ألم مع الشهيق (Pain with deep breath)
+- E_118: تاريخ التهاب رئوي (Previous pneumonia)
+- E_106: فشل عضلة القلب (Heart failure)
+*/
+
+### 36. Possible NSTEMI / STEMI (احتمال نوبة قلبية)
+{
+  "evidence_codes": ["E_55", "E_66", "E_50", "E_148", "E_105", "E_108", "E_104", "E_69", "E_71"],
+  "age": 60, "sex": "M"
+}
+/*
+- E_55: ألم صدر (Chest pain)
+- E_66: ضيق تنفس (SOB)
+- E_50: تعرق (Sweating)
+- E_148: غثيان (Nausea)
+- E_105: تاريخ ذبحة/نوبة (Angina/MI history)
+- E_108: مشكلة في الدورة الدموية (Poor circulation)
+- E_104: ضغط دم مرتفع (Hypertension)
+- E_69: سكري (Diabetes)
+- E_71: كوليسترول (High cholesterol)
+*/
+
+### 37. Pulmonary embolism (جلطة رئوية)
+{
+  "evidence_codes": ["E_66", "E_55", "E_220", "E_45", "E_196", "E_109", "E_110", "E_100"],
+  "age": 55, "sex": "F"
+}
+/*
+- E_66: ضيق تنفس مفاجئ (SOB)
+- E_55: ألم (Pain)
+- E_220: ألم مع الشهيق (Pain with deep breath)
+- E_45: كحة دموية (Coughing blood)
+- E_196: جراحة مؤخراً (Recent surgery)
+- E_109: تاريخ جلطة ساق (DVT history)
+- E_110: قلة حركة لأيام (Immobilized)
+- E_100: علاج هرموني (Hormone therapy)
+*/
+
+### 38. Pulmonary neoplasm (سرطان الرئة)
+{
+  "evidence_codes": ["E_201", "E_45", "E_162", "E_66", "E_79", "E_191", "E_224"],
+  "age": 65, "sex": "M"
+}
+/*
+- E_201: سعال (Cough)
+- E_45: كحة دموية (Bloody sputum)
+- E_162: فقدان وزن (Weight loss)
+- E_66: ضيق تنفس (SOB)
+- E_79: مدخن حالي (Current smoker)
+- E_191: مدخن سابق (Former smoker)
+- E_224: تاريخ عائلي للسرطان (Family lung cancer)
+*/
+
+### 39. SLE (الذئبة الحمراء)
+{
+  "evidence_codes": ["E_129", "E_206", "E_89", "E_151", "E_55", "E_141", "E_3"],
+  "age": 28, "sex": "F"
+}
+/*
+- E_129: طفح جلدي (Lesions/Rash)
+- E_206: قرح فم (Mouth ulcers)
+- E_89: تعب مستمر (Fatigue)
+- E_151: تورم (Swelling)
+- E_55: ألم (Pain)
+- E_141: دورة شهرية مبكرة (Early menstruation age)
+- E_3: تاريخ التهاب قلب (History pericarditis)
+*/
+
+### 40. Sarcoidosis (داء الساركويد)
+{
+  "evidence_codes": ["E_9", "E_74", "E_129", "E_66", "E_163", "E_70", "E_198"],
+  "age": 45, "sex": "F"
+}
+/*
+- E_9: تورم غدد (Swollen nodes)
+- E_74: احمرار العين (Eye redness)
+- E_129: طفح جلدي (Rash/Lesions)
+- E_66: ضيق تنفس (SOB)
+- E_163: إفرازات (Discharge - though context varies)
+- E_70: زيادة وزن (Overweight)
+- E_198: عمل في الزراعة (Working in agriculture)
+*/
+
+### 41. Scombroid food poisoning (التسمم الغذائي بالسمبريد)
+{
+  "evidence_codes": ["E_129", "E_92", "E_51", "E_155", "E_148", "E_187"],
+  "age": 30, "sex": "F"
+}
+/*
+- E_129: طفح/احمرار (Lesions/Rash)
+- E_92: احمرار الخدود (Red cheeks)
+- E_51: إسهال (Diarrhea)
+- E_155: خفقان (Palpitations)
+- E_148: غثيان (Nausea)
+- E_187: تناول سمك أو جبن قبل التفاعل (Eat fish/cheese before)
+*/
+
+### 42. Spontaneous pneumothorax (استرواح الصدر العفوي - انكماش الرئة)
+{
+  "evidence_codes": ["E_55", "E_66", "E_220", "E_79", "E_165", "E_21"],
+  "age": 25, "sex": "M"
+}
+/*
+- E_55: ألم صدر مفاجئ (Pain)
+- E_66: ضيق تنفس (SOB)
+- E_220: ألم مع الشهيق (Deep breath pain)
+- E_79: مدخن (Smoke cigarettes)
+- E_165: تاريخ عائلي (Family history pneumothorax)
+- E_21: تاريخ شخصي سابق (Previous spontaneous pneumothorax)
+*/
+
+### 43. Spontaneous rib fracture (كسر تلقائي في الأضلاع)
+{
+  "evidence_codes": ["E_55", "E_220", "E_216", "E_201", "E_153", "E_37"],
+  "age": 70, "sex": "F"
+}
+/*
+- E_55: ألم (Pain)
+- E_220: ألم مع الشهيق (Pain with deep breath)
+- E_216: أسوأ مع الحركة (Worse with movement)
+- E_201: سعال (Cough)
+- E_153: هشاشة عظام (Osteoporosis treatment)
+- E_37: سرطان منتشر (Metastatic cancer)
+*/
+
+### 44. Stable angina (ذبحة صدرية مستقرة)
+{
+  "evidence_codes": ["E_218", "E_55", "E_105", "E_104", "E_71", "E_143"],
+  "age": 65, "sex": "M"
+}
+/*
+- E_218: أسوأ مع المجهود ويتحسن بالراحة (Stable effort symptom)
+- E_55: ألم (Pain)
+- E_105: تاريخ نوبة سابقة (MI/Angina history)
+- E_104: ضغط مرتفع (Hypertension)
+- E_71: كوليسترول مرتفع (High cholesterol)
+- E_143: ممارسة رياضة منتظمة (Exercise regularly)
+*/
+
+### 45. Tuberculosis (السل - الدرن)
+{
+  "evidence_codes": ["E_201", "E_91", "E_45", "E_162", "E_61", "E_2", "E_69", "E_208"],
+  "age": 45, "sex": "M"
+}
+/*
+- E_201: سعال (Cough)
+- E_91: حمى (Fever)
+- E_45: كحة دموية (Bloody sputum)
+- E_162: فقدان وزن (Weight loss)
+- E_61: تعاطي مخدرات حقن (Intravenous drugs)
+- E_2: مصاب بـ HIV
+- E_69: سكري (Diabetes)
+- E_208: نقص وزن شديد (Is your BMI less than 18.5)
+*/
+
+### 46. URTI (عدوى الجهاز التنفسي العلوي)
+{
+  "evidence_codes": ["E_181", "E_97", "E_91", "E_201", "E_144", "E_49", "E_41"],
+  "age": 12, "sex": "M"
+}
+/*
+- E_181: احتقان أنف (Nasal congestion)
+- E_97: ألم حلق (Sore throat)
+- E_91: حمى (Fever)
+- E_201: سعال (Cough)
+- E_144: آلام عضلات (Muscle pain)
+- E_49: حضانة (Daycare attendee)
+- E_41: اتصال بمريض مماثل (Contact)
+*/
+
+### 47. Unstable angina (ذبحة صدرية غير مستقرة)
+{
+  "evidence_codes": ["E_14", "E_13", "E_55", "E_50", "E_105", "E_148", "E_104", "E_71"],
+  "age": 62, "sex": "M"
+}
+/*
+- E_14: ألم في الراحة (Pain at rest)
+- E_13: أعراض تزداد سوءاً بجهد أقل (Symptoms worsened in last 2 weeks)
+- E_55: ألم (Pain)
+- E_50: تعرق (Sweating)
+- E_105: تاريخ نوبة (History MI)
+- E_148: غثيان (Nausea)
+- E_104: ضغط (Hypertension)
+- E_71: كوليسترول (High cholesterol)
+*/
+
+### 48. Viral pharyngitis (التهاب البلعوم الفيروسي)
+{
+  "evidence_codes": ["E_97", "E_91", "E_181", "E_41", "E_48", "E_227"],
+  "age": 10, "sex": "M"
+}
+/*
+- E_97: ألم حلق (Sore throat)
+- E_91: حمى (Fever)
+- E_181: احتقان أنف (Nasal congestion)
+- E_41: تواصل مع مريض (Contact with similar symptoms)
+- E_48: سكن جماعي (Living with 4+ people)
+- E_227: نقص مناعة (Immunosuppressed)
+*/
+
+### 49. Whooping cough (السعال الديكي)
+{
+  "evidence_codes": ["E_203", "E_166", "E_112", "E_202", "E_40", "E_209"],
+  "age": 5, "sex": "F"
+}
+/*
+- E_203: نوبات سعال شديدة (Coughing fits)
+- E_166: قيء بعد السعال (Vomit after cough)
+- E_112: رنة تنفسية (Wheeze while inhaling)
+- E_202: سعال نباحي (Barking cough)
+- E_40: تواصل مع مصاب (Contact with pertussis)
+- E_209: تطعيمات غير مكتملة (N in vaccinations up to date potentially)
+*/

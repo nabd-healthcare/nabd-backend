@@ -1,0 +1,117 @@
+### Diagnosis API Testing
+### Base URL
+@baseUrl = http://localhost:5117
+@token = YOUR_DOCTOR_JWT_TOKEN_HERE
+
+### Health Check - No authentication required
+GET {{baseUrl}}/api/doctor/diagnosis/health
+Content-Type: application/json
+
+###
+
+### Test 1: Diagnose with Arabic symptoms (Fever + Cough)
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-123",
+  "symptomsText": "المريض عنده سخونية شديدة وكحة مستمرة من يومين"
+}
+
+###
+
+### Test 2: Diagnose with Arabic symptoms (Chest pain + Fever + Cough)
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-456",
+  "symptomsText": "المريض يشتكي من ألم في الصدر مع سخونية وكحة شديدة"
+}
+
+###
+
+### Test 3: Diagnose with English symptoms
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-789",
+  "symptomsText": "Patient has severe headache and dizziness for 3 days"
+}
+
+###
+
+### Test 4: Diagnose with mixed Arabic/English symptoms
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-101",
+  "symptomsText": "المريض عنده fever و headache و nausea من امبارح"
+}
+
+###
+
+### Test 5: Gastrointestinal symptoms
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-202",
+  "symptomsText": "ألم في البطن مع إسهال وقيء وغثيان"
+}
+
+###
+
+### Test 6: Invalid request - Empty symptoms
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-303",
+  "symptomsText": ""
+}
+
+###
+
+### Test 7: Invalid request - Missing patient ID
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "symptomsText": "المريض عنده سخونية"
+}
+
+###
+
+### Test 8: Invalid request - Symptoms too short
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-404",
+  "symptomsText": "سخونية"
+}
+
+###
+
+### Test 9: Complex symptoms case
+POST {{baseUrl}}/api/doctor/diagnosis
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "patientId": "patient-505",
+  "symptomsText": "المريض يعاني من سخونية عالية 39 درجة مع كحة جافة وألم في الصدر عند التنفس وضيق في التنفس وصداع شديد"
+}
+
+###
