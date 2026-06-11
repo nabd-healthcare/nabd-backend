@@ -1,8 +1,7 @@
-using System.Net;
-using System.Net.Mail;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Nabd.Shared.Configurations;
+using Resend;
 
 namespace Nabd.Application.Services.Email
 {
@@ -51,53 +50,45 @@ namespace Nabd.Application.Services.Email
             return await SendEmailAsync(toEmail, subject, htmlBody);
         }
 
-        public async Task<bool> SendEmailAsync(string toEmail, string subject, string htmlBody, string? plainTextBody = null)
-        {
-            try
+        public async Task<bool> SendEmailAsync(
+    string toEmail,
+    string subject,
+    string htmlBody,
+    string? plainTextBody = null)
+{
+    try
+    {
+      
+var resend = ResendClient.Create(
+    Environment.GetEnvironmentVariable("RESEND_API_KEY")!
+);
+        var response = await resend.EmailSendAsync(
+            new EmailMessage()
             {
-                using var smtpClient = new SmtpClient(_emailSettings.SmtpHost, _emailSettings.SmtpPort)
-                {
-                    EnableSsl = _emailSettings.EnableSsl,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(_emailSettings.SmtpUsername, _emailSettings.SmtpPassword),
-                    Timeout = 30000 // 30 seconds
-                };
+                From = "support@nabdhealth.me",
+                To = toEmail,
+                Subject = subject,
+                HtmlBody = htmlBody
+            });
 
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress(_emailSettings.FromEmail, _emailSettings.FromName),
-                    Subject = subject,
-                    Body = htmlBody,
-                    IsBodyHtml = true,
-                    Priority = MailPriority.Normal
-                };
+        _logger.LogInformation(
+            "Email sent successfully to {Email}. Id={Id}",
+            toEmail,
+            response.Content);
 
-                mailMessage.To.Add(new MailAddress(toEmail));
+        return response.Success;
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(
+            ex,
+            "Error sending email to {Email}: {Message}",
+            toEmail,
+            ex.Message);
 
-                // Add plain text alternative if provided
-                if (!string.IsNullOrEmpty(plainTextBody))
-                {
-                    var plainView = AlternateView.CreateAlternateViewFromString(plainTextBody, null, "text/plain");
-                    mailMessage.AlternateViews.Add(plainView);
-                }
-
-                await smtpClient.SendMailAsync(mailMessage);
-
-                _logger.LogInformation("Email sent successfully to {Email}", toEmail);
-                return true;
-            }
-            catch (SmtpException ex)
-            {
-                _logger.LogError(ex, "SMTP error sending email to {Email}: {Message}", toEmail, ex.Message);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unexpected error sending email to {Email}: {Message}", toEmail, ex.Message);
-                return false;
-            }
-        }
-
+        return false;
+    }
+}
         #region Email Templates
 
         private string GetVerificationOtpEmailTemplate(string userName, string otpCode)
@@ -287,3 +278,4 @@ namespace Nabd.Application.Services.Email
         #endregion
     }
 }
+
