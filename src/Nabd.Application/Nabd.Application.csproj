@@ -31,4 +31,13 @@
     <ProjectReference Include="..\Nabd.Shared\Nabd.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Copy AI runtime files to the 'ai' folder on build/publish -->
+    <Content Include="AI\Diagnosis\Data\medical_ai_service.py" Link="ai\medical_ai_service.py" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="AI\Diagnosis\Data\symptoms_features.pkl" Link="ai\symptoms_features.pkl" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="AI\Diagnosis\Data\symptom_to_ecode.json" Link="ai\symptom_to_ecode.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="AI\Diagnosis\Data\ecode_to_name.json" Link="ai\ecode_to_name.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="AI\Diagnosis\Data\diseases_ar.json" Link="ai\diseases_ar.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

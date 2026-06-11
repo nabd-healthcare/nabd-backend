@@ -24,13 +24,28 @@ public class MainDiagnosisLocalModel : IMainDiagnosisModel, IDisposable
     public MainDiagnosisLocalModel(ILogger<MainDiagnosisLocalModel> logger)
     {
         _logger = logger;
-        _pythonExecutable = @"C:\Users\muham\AppData\Local\Programs\Python\Python312\python.exe"; 
+
+        // 1. Cross-platform Python executable resolution
+        var isWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
         
+        // Environment variable override for max flexibility, fallback to OS defaults
+        _pythonExecutable = Environment.GetEnvironmentVariable("PYTHON_EXEC") 
+                            ?? (isWindows ? "python" : "python3");
+        
+        // 2. Production-safe pathing using the 'ai' directory inside the deployment root
         var baseDir = AppContext.BaseDirectory;
-        // The project structure is Back/src/Nabd.API/bin/...
-        // The target folder is Back/src/Nabd.Application/AI/Diagnosis/Data
-        var aiModelsPath = Path.Combine(baseDir, "..", "..", "..", "..", "..", "src", "Nabd.Application", "AI", "Diagnosis", "Data");
+        var aiModelsPath = Path.Combine(baseDir, "ai");
         
+        // 3. Fallback for Local Development (if 'ai' is not copied to bin/Debug yet)
+        if (!Directory.Exists(aiModelsPath) && isWindows)
+        {
+            var localDevPath = Path.GetFullPath(Path.Combine(baseDir, "..", "..", "..", "..", "..", "src", "Nabd.Application", "AI", "Diagnosis", "Data"));
+            if (Directory.Exists(localDevPath))
+            {
+                aiModelsPath = localDevPath;
+            }
+        }
+
         _scriptPath = Path.Combine(aiModelsPath, "medical_ai_service.py");
         _symptomColsPath = Path.Combine(aiModelsPath, "symptom_to_ecode.json");
 
