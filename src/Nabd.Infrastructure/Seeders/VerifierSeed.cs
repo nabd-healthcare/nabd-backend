@@ -17,33 +17,6 @@ namespace Nabd.Infrastructure.Seeders
 
         public static async Task SeedAsync(NabdDbContext context, UserManager<User> userManager)
         {
-            // Cleanup old verifier if exists
-            var oldUser = await userManager.FindByEmailAsync("ahmed.verifier@shuryan.com");
-            if (oldUser != null)
-            {
-                Console.WriteLine("Found old verifier 'ahmed.verifier@shuryan.com'. Attempting to remove...");
-                try 
-                {
-                    await userManager.DeleteAsync(oldUser);
-                    Console.WriteLine("Old verifier removed successfully.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Could not delete old verifier (likely due to foreign key constraints): {ex.Message}");
-                    Console.WriteLine("Deactivating old verifier account instead...");
-                    
-                    oldUser.Email = $"deleted_ahmed_{Guid.NewGuid()}@shuryan.com";
-                    oldUser.UserName = oldUser.Email;
-                    oldUser.NormalizedEmail = oldUser.Email.ToUpper();
-                    oldUser.NormalizedUserName = oldUser.UserName.ToUpper();
-                    oldUser.PasswordHash = "INVALID_HASH";
-                    oldUser.LockoutEnabled = true;
-                    oldUser.LockoutEnd = DateTimeOffset.MaxValue;
-                    
-                    await userManager.UpdateAsync(oldUser);
-                    Console.WriteLine("Old verifier deactivated.");
-                }
-            }
 
             // Define expected verifiers
             var adminId = Guid.NewGuid(); // Simulated admin ID
@@ -60,31 +33,7 @@ namespace Nabd.Infrastructure.Seeders
                     PhoneNumberConfirmed = true,
                     CreatedAt = DateTime.UtcNow,
                     CreatedByAdminId = adminId
-                }, "Zak123#"), // Custom password for this user
-                (new Verifier
-                {
-                    FirstName = "فاطمة",
-                    LastName = "السيد",
-                    Email = "fatma.verifier@shuryan.com",
-                    UserName = "fatma.verifier@shuryan.com",
-                    PhoneNumber = "+201002345678",
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.UtcNow,
-                    CreatedByAdminId = adminId
-                }, DefaultPassword),
-                (new Verifier
-                {
-                    FirstName = "محمد",
-                    LastName = "حسن",
-                    Email = "mohamed.verifier@shuryan.com",
-                    UserName = "mohamed.verifier@shuryan.com",
-                    PhoneNumber = "+201003456789",
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.UtcNow,
-                    CreatedByAdminId = adminId
-                }, DefaultPassword)
+                }, "Zakaria@123") // Fixed password, at least 8 characters
             };
 
             Console.WriteLine("Seeding Verifiers...");

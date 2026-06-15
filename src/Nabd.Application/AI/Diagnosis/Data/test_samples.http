@@ -67,3 +67,48 @@ POST /diagnose
 # Expected:
 # primary_diagnosis.disease_en = "Tuberculosis"
 # primary_diagnosis.disease_ar = "السل الرئوي"
+
+
+# ══════════════════════════════════════════════
+# عينات اختبار جاهزة باللغة الإنجليزية (Symptoms Text - From Dataset)
+# ══════════════════════════════════════════════
+
+# ── Case 6: السل الرئوي (Tuberculosis) ──────────
+# Symptoms from Dataset: Cough (E_201), Coughing up blood (E_45), Dyspnea (E_66), Fever (E_91), Weight loss (E_162)
+POST http://localhost:5161/api/Diagnosis/analyze
+Content-Type: application/json
+
+{
+  "patientId": "pt-123",
+  "symptomsText": "fever, chronic cough, coughing up blood, shortness of breath, involuntary weight loss",
+  "age": 40,
+  "sex": "M"
+}
+
+###
+
+# ── Case 7: ارتجاع المريء (GERD) ────────────
+# Symptoms from Dataset: Heartburn/Acid Reflux (E_173), Cough (E_201), Worse after eating (E_215), Chest pain (E_55)
+POST http://localhost:5161/api/Diagnosis/analyze
+Content-Type: application/json
+
+{
+  "patientId": "pt-124",
+  "symptomsText": "burning sensation in stomach, chest pain, cough, symptoms worse after eating",
+  "age": 35,
+  "sex": "F"
+}
+
+###
+
+# ── Case 8: الصداع العنقودي (Cluster headache) ──
+# Symptoms from Dataset: Head Pain (E_55), Excessive tears (E_127), Nasal congestion/Runny nose (E_181)
+POST http://localhost:5161/api/Diagnosis/analyze
+Content-Type: application/json
+
+{
+  "patientId": "pt-125",
+  "symptomsText": "severe headache, excessive tears, runny nose",
+  "age": 28,
+  "sex": "M"
+}
