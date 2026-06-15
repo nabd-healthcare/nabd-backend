@@ -43,15 +43,27 @@ namespace Nabd.Infrastructure.Seeders
                 // Check if user exists
                 var existingUser = await userManager.FindByEmailAsync(verifierData.Email);
                 
-                // If user exists, verify password. If incorrect, delete and recreate.
+                // If user exists, verify password. If incorrect, update password.
                 if (existingUser != null)
                 {
                     var checkPass = await userManager.CheckPasswordAsync(existingUser, password);
                     if (!checkPass)
                     {
-                        Console.WriteLine($"Password mismatch for {verifierData.Email}. Deleting user to recreate with correct credentials...");
-                        await userManager.DeleteAsync(existingUser);
-                        existingUser = null; // Mark as null to trigger creation
+                        Console.WriteLine($"Password mismatch for {verifierData.Email}. Resetting password...");
+                        var token = await userManager.GeneratePasswordResetTokenAsync(existingUser);
+                        var resetResult = await userManager.ResetPasswordAsync(existingUser, token, password);
+                        if (!resetResult.Succeeded)
+                        {
+                            Console.WriteLine($"Failed to reset password: {string.Join(", ", resetResult.Errors.Select(e => e.Description))}");
+                        }
+                    }
+
+                    // Always ensure the account is unlocked on startup just in case
+                    if (await userManager.IsLockedOutAsync(existingUser))
+                    {
+                        Console.WriteLine($"Unlocking account for {verifierData.Email}...");
+                        await userManager.SetLockoutEndDateAsync(existingUser, null);
+                        await userManager.ResetAccessFailedCountAsync(existingUser);
                     }
                 }
 
