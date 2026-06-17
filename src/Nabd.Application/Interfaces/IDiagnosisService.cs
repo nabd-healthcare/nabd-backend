@@ -14,4 +14,10 @@ public interface IDiagnosisService
     /// <param name="request">Diagnosis request containing patient ID and symptoms</param>
     /// <returns>Diagnosis response with normalized symptoms and suggested diagnosis</returns>
     Task<DiagnosisResponseDto> ProcessDiagnosisAsync(DiagnosisRequestDto request);
+
+    /// <summary>
+    /// Get all available evidence codes and their English names for frontend symptom search
+    /// </summary>
+    /// <returns>Dictionary of evidence code -> English name</returns>
+    Task<Dictionary<string, string>> GetEvidencesAsync();
 }

@@ -108,4 +108,32 @@ public class DiagnosisController : ControllerBase
             executionMode = "Python Subprocess"
         });
     }
+
+    /// <summary>
+    /// Get all available evidence codes and their English names for the symptom search autocomplete.
+    /// This reads directly from evidences.json so the frontend always shows EVERY symptom the model knows.
+    /// </summary>
+    /// <returns>List of { code, name } objects</returns>
+    [HttpGet("evidences")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetEvidences()
+    {
+        try
+        {
+            var evidences = await _diagnosisService.GetEvidencesAsync();
+
+            // Return as array of { code, name } for easy consumption by frontend
+            var result = evidences
+                .Select(kvp => new { code = kvp.Key, name = kvp.Value })
+                .OrderBy(e => e.code)
+                .ToList();
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching evidences list");
+            return StatusCode(500, new { error = "Failed to load evidences" });
+        }
+    }
 }

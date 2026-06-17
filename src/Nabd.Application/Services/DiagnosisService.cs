@@ -147,4 +147,62 @@ public class DiagnosisService : IDiagnosisService
             };
         }
     }
+
+    /// <summary>
+    /// Get all available evidence codes and their English names from evidences.json.
+    /// Reads the file directly for completeness — the model's evidences.json is the
+    /// single source of truth for what the AI model understands.
+    /// </summary>
+    public async Task<Dictionary<string, string>> GetEvidencesAsync()
+    {
+        try
+        {
+            // Locate evidences.json alongside the model artifacts
+            var baseDir = AppContext.BaseDirectory;
+            var aiModelsPath = Path.Combine(baseDir, "ai");
+
+            // Fallback for local development
+            if (!Directory.Exists(aiModelsPath) &&
+                System.Runtime.InteropServices.RuntimeInformation
+                    .IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+            {
+                var localDevPath = Path.GetFullPath(
+                    Path.Combine(baseDir, "..", "..", "..", "..", "..", "src",
+                                 "Nabd.Application", "AI", "Diagnosis", "Data"));
+                if (Directory.Exists(localDevPath))
+                    aiModelsPath = localDevPath;
+            }
+
+            var evidencesPath = Path.Combine(aiModelsPath, "evidences.json");
+            if (!File.Exists(evidencesPath))
+            {
+                _logger.LogWarning("evidences.json not found at {Path}", evidencesPath);
+                return new Dictionary<string, string>();
+            }
+
+            var json = await File.ReadAllTextAsync(evidencesPath);
+            using var doc = JsonDocument.Parse(json);
+
+            // evidences.json structure: { "E_91": { "question_en": "Do you have a fever?", ... }, ... }
+            var result = new Dictionary<string, string>();
+            foreach (var prop in doc.RootElement.EnumerateObject())
+            {
+                var code = prop.Name; // e.g. "E_91"
+                if (prop.Value.TryGetProperty("question_en", out var qEn))
+                {
+                    var questionText = qEn.GetString();
+                    if (!string.IsNullOrWhiteSpace(questionText))
+                        result[code] = questionText;
+                }
+            }
+
+            _logger.LogInformation("Loaded {Count} evidence entries from evidences.json", result.Count);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error loading evidences.json");
+            return new Dictionary<string, string>();
+        }
+    }
 }
