@@ -67,9 +67,8 @@ namespace Nabd.API.Extensions
             // Email Service
             services.AddScoped<IEmailService, EmailService>();
 
-            // File Upload Service
-            // File Upload Service (Local for Development)
-            services.AddScoped<IFileUploadService, LocalFileUploadService>();
+            // File Upload Service (Cloudinary)
+            services.AddScoped<IFileUploadService, CloudinaryService>();
 
             // Business Services
             services.AddScoped<IPatientService, PatientService>();

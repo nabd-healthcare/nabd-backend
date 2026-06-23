@@ -214,9 +214,30 @@ namespace Nabd.Application.Services
 
                 // Extract public ID from URL
                 var uri = new Uri(fileUrl);
-                var segments = uri.AbsolutePath.Split('/');
-                var publicIdWithExtension = string.Join("/", segments.Skip(segments.Length - 3));
-                var publicId = Path.GetFileNameWithoutExtension(publicIdWithExtension);
+                var segments = uri.AbsolutePath.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                
+                int uploadIndex = Array.IndexOf(segments, "upload");
+                if (uploadIndex == -1)
+                {
+                    _logger.LogWarning("Could not find 'upload' segment in URL: {FileUrl}", fileUrl);
+                    return false;
+                }
+
+                int skipCount = uploadIndex + 1;
+                if (skipCount < segments.Length && segments[skipCount].StartsWith("v") && long.TryParse(segments[skipCount].Substring(1), out _))
+                {
+                    skipCount++;
+                }
+
+                var publicIdSegments = segments.Skip(skipCount);
+                var publicIdWithExtension = string.Join("/", publicIdSegments);
+                
+                var publicId = publicIdWithExtension;
+                int lastDot = publicId.LastIndexOf('.');
+                if (lastDot > 0)
+                {
+                    publicId = publicId.Substring(0, lastDot);
+                }
 
                 // Delete from Cloudinary
                 var deletionParams = new DeletionParams(publicId);
@@ -228,7 +249,7 @@ namespace Nabd.Application.Services
                     return true;
                 }
 
-                _logger.LogWarning("File deletion failed: {Result}", result.Result);
+                _logger.LogWarning("File deletion failed: {Result} for PublicId: {PublicId}", result.Result, publicId);
                 return false;
             }
             catch (Exception ex)
