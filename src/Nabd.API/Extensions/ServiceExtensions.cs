@@ -96,8 +96,10 @@ namespace Nabd.API.Extensions
 
 
 
-            // Simple Symptom Parser
-            services.AddScoped<IArabicSymptomParser, Nabd.Application.Services.AI.SimpleSymptomParser>();
+            // Mistral-powered Symptom Parser (maps Arabic/English text to E-codes)
+            // Falls back to simple split if ApiKey is not configured
+            services.AddHttpClient("Mistral");
+            services.AddScoped<IArabicSymptomParser, Nabd.Application.Services.AI.MistralSymptomParser>();
 
             // Diagnosis Service
             services.AddScoped<IDiagnosisService, DiagnosisService>();
