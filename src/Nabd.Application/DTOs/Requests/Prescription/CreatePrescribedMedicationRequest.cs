@@ -12,6 +12,8 @@ namespace Nabd.Application.DTOs.Requests.Prescription
         [Required(ErrorMessage = "Medication ID is required")]
         public Guid MedicationId { get; set; }
 
+        public string? MedicationName { get; set; }
+
         [Required(ErrorMessage = "Dosage is required")]
         [StringLength(200, MinimumLength = 2, ErrorMessage = "Dosage must be between 2-200 characters")]
         public string Dosage { get; set; } = string.Empty;

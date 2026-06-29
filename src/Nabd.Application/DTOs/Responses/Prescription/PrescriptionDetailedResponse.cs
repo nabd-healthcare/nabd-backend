@@ -11,6 +11,10 @@ namespace Nabd.Application.DTOs.Responses.Prescription
         public Guid Id { get; set; }
         public string PrescriptionNumber { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
+        public string PatientName { get; set; } = string.Empty;
+        public string DoctorName { get; set; } = string.Empty;
+        public string? GeneralInstructions { get; set; }
+        public int Status { get; set; }
         public IEnumerable<MedicationDetailResponse> Medications { get; set; } = new List<MedicationDetailResponse>();
     }
 

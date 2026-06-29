@@ -109,7 +109,21 @@ namespace Nabd.Application.Services
                     var medication = await _unitOfWork.Medications.GetByIdAsync(medicationRequest.MedicationId);
                     if (medication == null)
                     {
-                        throw new ArgumentException($"Medication with ID {medicationRequest.MedicationId} not found");
+                        if (medicationRequest.MedicationId == Guid.Empty && !string.IsNullOrWhiteSpace(medicationRequest.MedicationName))
+                        {
+                            medication = new Medication
+                            {
+                                Id = Guid.NewGuid(),
+                                BrandName = medicationRequest.MedicationName,
+                                GenericName = medicationRequest.MedicationName
+                            };
+                            await _unitOfWork.Medications.AddAsync(medication);
+                            medicationRequest.MedicationId = medication.Id;
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"Medication with ID {medicationRequest.MedicationId} not found");
+                        }
                     }
 
                     var prescribedMedication = new PrescribedMedication
@@ -1006,6 +1020,10 @@ namespace Nabd.Application.Services
                     Id = prescription.Id,
                     PrescriptionNumber = prescription.PrescriptionNumber,
                     CreatedAt = prescription.CreatedAt,
+                    PatientName = prescription.Patient != null ? $"{prescription.Patient.FirstName} {prescription.Patient.LastName}" : "Unknown",
+                    DoctorName = prescription.Doctor != null ? $"د. {prescription.Doctor.FirstName} {prescription.Doctor.LastName}" : "Unknown",
+                    GeneralInstructions = prescription.GeneralInstructions,
+                    Status = (int)prescription.Status,
                     Medications = prescription.PrescribedMedications?.Select(pm => new MedicationDetailResponse
                     {
                         MedicationName = pm.Medication?.BrandName ?? "Unknown",
