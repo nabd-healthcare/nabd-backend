@@ -75,9 +75,13 @@ namespace Nabd.Application.Services
                 
                 if (doctorActiveAppointment != null)
                 {
-                    _logger.LogWarning("Doctor {DoctorId} already has an active session with appointment {ActiveAppointmentId}", 
+                    _logger.LogWarning("Doctor {DoctorId} already has an active session with appointment {ActiveAppointmentId}. Auto-ending the previous session.", 
                         doctorId, doctorActiveAppointment.Id);
-                    throw new InvalidOperationException("لديك جلسة نشطة أخرى. يرجى إنهاءها أولاً");
+                    
+                    // Auto-end the stuck/previous session
+                    doctorActiveAppointment.ActualEndTime = DateTime.UtcNow;
+                    doctorActiveAppointment.Status = AppointmentStatus.Completed;
+                    _appointmentRepository.Update(doctorActiveAppointment);
                 }
 
                 // ==================== Start Session ====================
