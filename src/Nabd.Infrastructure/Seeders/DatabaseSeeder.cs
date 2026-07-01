@@ -49,6 +49,9 @@ namespace Nabd.Infrastructure.Seeders
             // 5. Seed Reviews (depends on completed appointments)
             await ReviewSeed.SeedAsync(context);
 
+            // 6. Guarantee isolated demo accounts
+            await DemoDataSeeder.SeedGuaranteedDemoDataAsync(context, userManager);
+
             Console.WriteLine("Database seeding completed successfully!");
         }
 
