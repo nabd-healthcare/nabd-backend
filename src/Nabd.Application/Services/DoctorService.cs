@@ -1680,6 +1680,45 @@ namespace Nabd.Application.Services
                     UpdatedAt = m.UpdatedAt
                 }).ToList();
 
+                // Add session documentations
+                var allPatientAppointments = allAppointments
+                    .Where(a => a.PatientId == patientId)
+                    .ToList();
+                
+                var appointmentIds = allPatientAppointments.Select(a => a.Id).ToList();
+
+                var consultationRecords = await _unitOfWork.ConsultationRecords.GetAllAsync();
+                var patientConsultations = consultationRecords
+                    .Where(c => appointmentIds.Contains(c.AppointmentId))
+                    .OrderByDescending(c => c.CreatedAt)
+                    .ToList();
+                    
+                foreach (var c in patientConsultations)
+                {
+                    var textList = new List<string>();
+                    if (!string.IsNullOrWhiteSpace(c.ChiefComplaint)) textList.Add($"الشكوى الرئيسية: {c.ChiefComplaint}");
+                    if (!string.IsNullOrWhiteSpace(c.HistoryOfPresentIllness)) textList.Add($"تاريخ المرض الحالي: {c.HistoryOfPresentIllness}");
+                    if (!string.IsNullOrWhiteSpace(c.PhysicalExamination)) textList.Add($"الفحص السريري: {c.PhysicalExamination}");
+                    if (!string.IsNullOrWhiteSpace(c.Diagnosis)) textList.Add($"التشخيص: {c.Diagnosis}");
+                    if (!string.IsNullOrWhiteSpace(c.ManagementPlan)) textList.Add($"خطة العلاج: {c.ManagementPlan}");
+
+                    if (textList.Any())
+                    {
+                        medicalHistoryItems.Add(new MedicalHistoryItemResponse
+                        {
+                            Id = c.Id,
+                            Type = (Core.Enums.MedicalHistoryType)99, 
+                            TypeName = "توثيق جلسة",
+                            Text = string.Join("\n", textList),
+                            CreatedAt = c.CreatedAt,
+                            UpdatedAt = c.UpdatedAt
+                        });
+                    }
+                }
+                
+                // Sort the combined list
+                medicalHistoryItems = medicalHistoryItems.OrderByDescending(x => x.CreatedAt).ToList();
+
                 var response = new PatientMedicalRecordResponse
                 {
                     PatientId = patientId,
